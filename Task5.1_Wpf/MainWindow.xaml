@@ -15,26 +15,26 @@
         <Menu Margin="5" Padding="5" Background="#FFB4E0AB" >
             <MenuItem Header="_Файл">
                 <MenuItem Header="_Открыть">
-                    <MenuItem x:Name="open" Header="_Открыть файл" Click="open_Click" >
+                    <MenuItem x:Name="Open" Header="_Открыть файл" Click="Open_Click" >
                         <MenuItem.Icon>
                             <Image Source="Data/open_file_image.png" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Center"/>
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem x:Name="save" Header="_Сохранить" Click="save_Click">
+                <MenuItem x:Name="Save" Header="_Сохранить" Click="Save_Click">
                     <MenuItem.Icon>
                         <Image Source="Data/save_image.png" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Center"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="save_as" Header="_Сохранить как" Click="save_as_Click" >
+                <MenuItem x:Name="Save_as" Header="_Сохранить как" Click="Save_as_Click" >
                 </MenuItem>
-                <MenuItem x:Name="print" Header="_Печать" Click="print_Click">
+                <MenuItem x:Name="Print" Header="_Печать" Click="Print_Click">
                     <MenuItem.Icon>
                         <Image Source="Data/print_image.png" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Center"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem x:Name="close" Header="_Закрыть" Click="close_Click"/>
+                <MenuItem x:Name="CloseIt" Header="_Закрыть" Click="CloseIt_Click"/>
             </MenuItem>
             <MenuItem Header="_Правка"/>
             <MenuItem Header="_Справка">
@@ -59,23 +59,23 @@
                 </ComboBox>
             </ToolBar>
             <ToolBar Margin="5" Padding="5" Background="#FFBDD7D7">
-                <Button Name="BtnBold" Click="btnBold_Click">
+                <Button Name="BtnBold" Click="BtnBold_Click" >
                     <Image Source="Data\format_text_bold.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Width="30" Height="30" HorizontalAlignment="Center"/>
                 </Button>
                 <Separator/>
-                <Button Name="btnItalic" Click="btnItalic_Click" >
+                <Button Name="BtnItalic" Click="BtnItalic_Click" >
                     <Image Source="Data\format_text_italic.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Width="30" Height="30" HorizontalAlignment="Center"/>
                 </Button>
                 <Separator/>
-                <Button Name="btnUnderline" Click="btnUnderline_Click">
+                <Button Name="BtnUnderline" Click="BtnUnderline_Click" >
                     <Image Source="Data\format_text_underline.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Width="30" Height="30" HorizontalAlignment="Center"/>
                 </Button>
                 <Separator/>
             </ToolBar>
             <ToolBar Margin="5" Padding="5" Background="#FFBDD7D7">
                 <StackPanel VerticalAlignment="Center">
-                    <RadioButton Name="rb1" Content="Чёрный" IsChecked="True" Checked="rb1_Checked" />
-                    <RadioButton Name="rb2" Content="Красный" Checked="rb1_Checked"/>
+                    <RadioButton Name="Rb1" Content="Чёрный" IsChecked="True" Checked="Rb1_Checked" />
+                    <RadioButton Name="Rb2" Content="Красный" Checked="Rb1_Checked"/>
                 </StackPanel>
             </ToolBar>
         </ToolBarTray>

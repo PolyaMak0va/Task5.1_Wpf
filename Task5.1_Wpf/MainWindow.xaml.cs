@@ -42,8 +42,7 @@ namespace Example1_WpfApp1
         {
             string fontSize = ((sender as ComboBox).SelectedItem as TextBlock).Text;
 
-            int newValue;
-            if (int.TryParse(fontSize, out newValue))
+            if (int.TryParse(fontSize, out int newValue))
             {
                 if (textBox != null)
                 {
@@ -52,7 +51,84 @@ namespace Example1_WpfApp1
             }
         }
 
-        private void btnBold_Click(object sender, RoutedEventArgs e)
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog() { Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*" };
+            //openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                textBox.Text = File.ReadAllText(openFileDialog.FileName);
+            }
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog() { Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*" };
+            //saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                File.WriteAllText(saveFileDialog.FileName, textBox.Text);
+            }
+        }
+
+        private void Save_as_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog() { Filter = "PDF file (*.pdf)|*.pdf|Все файлы (*.*)|*.*" };
+            //saveFileDialog.Filter = "PDF file (*.pdf)|*.pdf|Все файлы (*.*)|*.*";
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                File.WriteAllText(saveFileDialog.FileName, textBox.Text);
+            }
+        }
+
+        private void Print_Click(object sender, RoutedEventArgs e)
+        {
+            Print print = new Print() { WindowStyle = WindowStyle.ToolWindow };
+            print.WindowStyle = WindowStyle.ToolWindow;
+            print.Show();
+            //PrintDialog printDialog = new PrintDialog();
+            //if (printDialog.ShowDialog() == true)
+            //{
+            //    printDialog.PrintVisual(textBox, "Распечатываем элемент Canvas");
+            //}
+        }
+
+        private void CloseIt_Click(object sender, RoutedEventArgs e)
+        {
+            string messageBoxText = "Вы хотите сохранить изменения?";
+            string caption = "Текстовый редактор";
+
+            MessageBoxButton button = MessageBoxButton.YesNoCancel;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    {
+                        SaveFileDialog saveFileDialog = new SaveFileDialog() { Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*" };
+
+                        if (saveFileDialog.ShowDialog() == true)
+                        {
+                            File.WriteAllText(saveFileDialog.FileName, textBox.Text);
+                        }
+                        break;
+                    }
+                case MessageBoxResult.No:
+                    {
+                        Application.Current.Shutdown();
+                        break;
+                    }
+                case MessageBoxResult.Cancel:
+                    {
+                        break;
+                    }
+            }
+        }
+
+        private void BtnBold_Click(object sender, RoutedEventArgs e)
         {
             //int weightValue = 999;
             //textBox.FontWeight = FontWeight.FromOpenTypeWeight(weightValue);
@@ -66,7 +142,7 @@ namespace Example1_WpfApp1
             }
         }
 
-        private void btnItalic_Click(object sender, RoutedEventArgs e)
+        private void BtnItalic_Click(object sender, RoutedEventArgs e)
         {
             if (textBox.FontStyle == FontStyles.Normal)
             {
@@ -78,7 +154,7 @@ namespace Example1_WpfApp1
             }
         }
 
-        private void btnUnderline_Click(object sender, RoutedEventArgs e)
+        private void BtnUnderline_Click(object sender, RoutedEventArgs e)
         {
             if (textBox.TextDecorations == TextDecorations.Underline)
             {
@@ -90,66 +166,22 @@ namespace Example1_WpfApp1
             }
         }
 
-        private void rb1_Checked(object sender, RoutedEventArgs e)
+        private void Rb1_Checked(object sender, RoutedEventArgs e)
         {
-            if (rb1.IsChecked == true)
+            if (Rb1.IsChecked == true)
             {
                 if (textBox != null)
                 {
                     textBox.Foreground = Brushes.Black;
                 }
             }
-            else if (rb2.IsChecked == true)
+            else if (Rb2.IsChecked == true)
             {
                 if (textBox != null)
                 {
                     textBox.Foreground = Brushes.Red;
                 }
             }
-        }
-
-        private void open_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                textBox.Text = File.ReadAllText(openFileDialog.FileName);
-            }
-        }
-
-        private void save_Click(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
-            
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                File.WriteAllText(saveFileDialog.FileName, textBox.Text);
-            }
-        }
-
-        private void save_as_Click(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PDF file (*.pdf)|*.pdf|Все файлы (*.*)|*.*";
-
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                File.WriteAllText(saveFileDialog.FileName, textBox.Text);
-            }
-        }
-
-        private void print_Click(object sender, RoutedEventArgs e)
-        {
-            Print print = new Print();
-            print.WindowStyle = WindowStyle.ToolWindow;
-            print.Show();
-        }
-
-        private void close_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
         }
     }
 }

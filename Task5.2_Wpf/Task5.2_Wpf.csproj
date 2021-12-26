@@ -117,5 +117,20 @@
     <Resource Include="Data\cut_image.png" />
     <Resource Include="Data\paste_image.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\clear_image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\gradient_image.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\line-width.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\brush_image.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\large_brush_image.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

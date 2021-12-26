@@ -25,7 +25,6 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-
         <Menu Margin="5" Padding="5" Grid.Row="0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" >
             <Menu.Background>
                 <RadialGradientBrush GradientOrigin="2,0" Center="2,1" RadiusX="6" RadiusY="-1" Opacity="0.815">
@@ -34,7 +33,9 @@
                     <GradientStop Color="#FFA228A5" Offset="0.764"/>
                 </RadialGradientBrush>
             </Menu.Background>
+            
             <MenuItem Header="_Файл">
+                
                 <MenuItem Header="_Открыть">
                     <MenuItem x:Name="open" Header="_Открыть файл" Click="Open_Click">
                         <MenuItem.Icon>
@@ -42,24 +43,23 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem x:Name="Save" Header="_Сохранить" Click="Save_Click" >
 
+                <MenuItem x:Name="Save" Header="_Сохранить" Click="Save_Click" >
                     <MenuItem.Icon>
                         <Image Source="Data\save_image.png" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Center"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="Save_as" Header="_Сохранить как"  >
-                    <!--Click="Save_as_Click"-->
-                </MenuItem>
-                <MenuItem x:Name="print" Header="_Печать" Click="print_Click">
+                
+                <MenuItem x:Name="print" Header="_Печать" Click="Print_Click">
                     <MenuItem.Icon>
                         <Image Source="Data\print_image.png" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Center"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem x:Name="close" Header="_Закрыть" />
-                <!--Click="close_Click"-->
+                
+                <MenuItem x:Name="close" Header="_Закрыть" Click="Сlose_Click" />
             </MenuItem>
+            
             <MenuItem Header="_Правка"/>
             <MenuItem Header="_Справка">
                 <MenuItem Header="_Просмотр справки">
@@ -70,14 +70,7 @@
             </MenuItem>
         </Menu>
 
-        <InkCanvas x:Name="inkCanvas" Height="Auto" Width="600" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top" SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" EditingMode="None" Grid.Row="2">
-            <InkCanvas.Background>
-                <SolidColorBrush Color="#FFF4EEEE" Opacity="0.5"/>
-            </InkCanvas.Background>
-            <Image x:Name="image" Source="{Binding}" />
-        </InkCanvas>
-
-        <ToolBarTray Grid.Row="1" Margin="5" DockPanel.Dock="Top" >
+        <ToolBarTray Margin="5" DockPanel.Dock="Top" Grid.Row="1" >
             <ToolBarTray.Background>
                 <RadialGradientBrush>
                     <GradientStop Color="#FF4E1968" Offset="0.892"/>
@@ -86,26 +79,46 @@
                     <GradientStop Color="#FF376043" Offset="0.913"/>
                 </RadialGradientBrush>
             </ToolBarTray.Background>
+
             <ToolBar Margin="5" Padding="5">
                 <ToolBar.Background>
                     <SolidColorBrush Color="#FFBDD7D7" Opacity="0.2"/>
                 </ToolBar.Background>
-                <Button Name="BtnInk" Click="BtnInk_Click" >
+                <Button Name="Pencil"  Cursor="Hand" Click="Pencil_Click">
                     <Image Source="Data\drawing_image.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Width="20" Height="20" HorizontalAlignment="Center"/>
-                    <Button.ToolTip>Рисование</Button.ToolTip>
+                    <Button.ToolTip>Карандаш</Button.ToolTip>
                 </Button>
                 <Separator/>
-                <Button Name="Highlight" Click="Highlight_Click" >
+
+                <Button Name="Brush"  Cursor="Hand" Click="Brush_Click">
+                    <Image Source="Data\brush_image.jpg" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Width="20" Height="20" HorizontalAlignment="Center"/>
+                    <Button.ToolTip>Кисть</Button.ToolTip>
+                </Button>
+                <Separator/>
+
+                <Button Name="LargeBrush" Cursor="Hand" Click="LargeBrush_Click">
+                    <Image Source="Data\large_brush_image.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Width="20" Height="20" HorizontalAlignment="Center"/>
+                    <Button.ToolTip>Большая кисть</Button.ToolTip>
+                </Button>
+            </ToolBar>
+
+            <ToolBar Margin="5" Padding="5">
+                <ToolBar.Background>
+                    <SolidColorBrush Color="#FFBDD7D7" Opacity="0.2"/>
+                </ToolBar.Background>
+                <Button Name="Highlight" Click="Highlight_Click" Cursor="Hand">
                     <Image Source="Data\highlight_image.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Width="20" Height="20" HorizontalAlignment="Center"/>
                     <Button.ToolTip>Highlight</Button.ToolTip>
                 </Button>
                 <Separator/>
-                <Button Name="BtnEraseByPoint" Click="BtnEraseByPoint_Click" >
+
+                <Button Name="BtnEraseByPoint" Click="BtnEraseByPoint_Click" Cursor="Hand">
                     <Image Source="Data\eraser_image.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Width="20" Height="20" HorizontalAlignment="Center"/>
                     <Button.ToolTip>Ластик</Button.ToolTip>
                 </Button>
                 <Separator/>
-                <Button Name="BtnSelect" Click="BtnSelect_Click" >
+
+                <Button Name="BtnSelect" Click="BtnSelect_Click" Cursor="Hand">
                     <Image Source="Data\select_image.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Width="20" Height="20" HorizontalAlignment="Center"/>
                     <Button.ToolTip>Выделить область</Button.ToolTip>
                 </Button>
@@ -115,34 +128,78 @@
                 <ToolBar.Background>
                     <SolidColorBrush Color="#FFBDD7D7" Opacity="0.2"/>
                 </ToolBar.Background>
-                <Button Name="_Cut" Click="_Cut_Click" >
+
+                <Button Name="_Cut" ToolBar.OverflowMode="Always" Click="Cut_Click" Cursor="Hand">
                     <Image Source="Data\cut_image.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Width="20" Height="20" HorizontalAlignment="Center"/>
                     <Button.ToolTip>Вырезать</Button.ToolTip>
                 </Button>
-                <Button Name="_Copy" >
+
+                <Button Name="_Copy" ToolBar.OverflowMode="AsNeeded" Click="Copy_Click" Cursor="Hand">
                     <Image Source="Data\copy_image.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Width="20" Height="20" HorizontalAlignment="Center"/>
                     <Button.ToolTip>Копировать</Button.ToolTip>
                 </Button>
-                <Button Name="_Paste" Click="Button_Click" >
+
+                <Button Name="_Paste" ToolBar.OverflowMode="Never" Click="Paste_Click" Cursor="Hand">
                     <Image Source="Data\paste_image.jpg" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Width="20" Height="20" HorizontalAlignment="Center"/>
                     <Button.ToolTip>Вставить</Button.ToolTip>
                 </Button>
+
+                <Button Name="_Clear" ToolBar.OverflowMode="Always" Click="Clear_Click" Cursor="Hand">
+                    <Image Source="Data\clear_image.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Width="20" Height="20" HorizontalAlignment="Center"/>
+                    <Button.ToolTip>Очистить всё</Button.ToolTip>
+                </Button>
             </ToolBar>
 
-            <ToolBar Margin="5" Padding="5">
+            <ToolBar Margin="5" Padding="5" Height="60" Width="54" HorizontalAlignment="Left" ToolTip="Цветовая палитра" Cursor="Hand">
                 <ToolBar.Background>
                     <SolidColorBrush Color="#FFBDD7D7" Opacity="0.2"/>
                 </ToolBar.Background>
-                <Slider/>
-                <!--<Slider 
-            Name="MainSlider" 
-            Minimum="1" 
-            Maximum="100" 
-            Value="10"
-            
-            IsSelectionRangeEnabled="True" 
-            Margin="102,35,480,363" SmallChange="1" ValueChanged="MainSlider_ValueChanged"/>-->
+                <Image Source="Data\gradient_image.jpg" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Width="20" Height="20" HorizontalAlignment="Center"/>
+                <UniformGrid Height="100" Width="350" Margin="5" Rows="3" Columns="10">
+
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="Red"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="GreenYellow"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="ForestGreen"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="SkyBlue"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="DodgerBlue"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="HotPink"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="LightPink"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="SaddleBrown"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="LightGray"/>
+
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="OrangeRed"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="Yellow"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="DarkGreen"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="DeepSkyBlue"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="DarkBlue"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="DeepPink"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="PeachPuff"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="RosyBrown"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="Gray"/>
+
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="DarkOrange"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="Gold"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="Teal"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="Indigo"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="Purple"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="MediumPurple"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="Violet"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="White"/>
+                    <Button Height="20" Width="20" Click="BtnColorSelected" Background="Black"/>
+
+                    <Rectangle Name="RctColorSelected" Height="20" Width="20" Fill="Transparent" Margin="1" Stroke="LightGray" StrokeThickness="1"/>
+                    <TextBlock VerticalAlignment="Center" FontStyle="Italic" FontSize="12" Margin="0,8.6,-32.2,9">Ваш цвет</TextBlock>
+                </UniformGrid>
             </ToolBar>
+
         </ToolBarTray>
+
+        <InkCanvas x:Name="inkCanvas" Margin="5" MinWidth="700" MinHeight="300" HorizontalAlignment="Center" VerticalAlignment="Top" EditingMode="None" Grid.Row="2">
+            <Image x:Name="image" Source="{Binding}" />
+            <InkCanvas.DefaultDrawingAttributes>
+                <DrawingAttributes x:Name="strokeAttr" Width="3" Height="3" Color="Black"/>
+            </InkCanvas.DefaultDrawingAttributes>
+        </InkCanvas>
+
     </Grid>
 </Window>
